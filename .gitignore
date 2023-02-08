@@ -4,7 +4,9 @@
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+.idea/**/misc.xml
 
+# Sensitive data json files
 credentials.json
 emails.json
 token.json
