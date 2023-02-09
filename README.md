@@ -11,6 +11,14 @@ to this repo, including recipient emails, authentication tokens, and credentials
 I initially planned to use Github's VCS with PythonAnywhere, but they don't make it particularly easy. I can create a git repo within PythonAnywhere
 but as far as I know I need to create it as a web app so I can use webhooks to send requests to GH.
 
+Future plans include:
+* Admin functions to view a daily summary of appointments
+* Google Sheets structure overhaul (would make the parser script largely redundant but would improve reliability)
+* Error handling (create ways around errors in case there are misspelled names, misplaced timeslots, or general formatting errors)
+* Migration to either a paid hosting service or another service entirely to allow (some or all of the following):
+      * Full-time monitoring of Google Sheet with event listeners to pick up when new appointments are created, deleted or otherwise changed.
+      * Web-app hosting for admin portal, live summary, possibly even appointment sign-up
+
 ## Getting Started
 
 ### Dependencies
