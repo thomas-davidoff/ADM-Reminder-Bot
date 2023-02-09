@@ -5,6 +5,7 @@ import json
 import base64
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+import os
 
 
 def create_html(appt, temp):
@@ -36,19 +37,23 @@ def send_mail(service, message):
 
 
 if __name__ == '__main__':
-    template = Template(filename='email_template.html')
-    with open('emails.json') as f:
+    script_directory = os.path.dirname(os.path.abspath(__file__))
+    email_file = os.path.join(script_directory, 'emails.json')
+    template_file = os.path.join(script_directory, 'email_template.html')
+
+    template = Template(filename=template_file)
+    with open(email_file) as f:
         email_dict = json.load(f)
         email_dict = {k.lower(): v for k, v in email_dict.items()}
 
-    example_appt = [{
-        'dancer': 'Thomas',
-        'pt': 'ANN',
-        'datetime': 'Thursday, Feb 9 at 4:50 PM',
-        'relative_time': 'tomorrow'
-    }]
-
-    next_appointments = example_appt
+    # example_appt = [{
+    #     'dancer': 'Thomas',
+    #     'pt': 'ANN',
+    #     'datetime': 'Thursday, Feb 9 at 4:50 PM',
+    #     'relative_time': 'tomorrow'
+    # }]
+    #
+    # next_appointments = example_appt
 
     for appointment in next_appointments:
         email_render = create_html(appointment, template)
