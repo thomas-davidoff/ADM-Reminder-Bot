@@ -6,7 +6,6 @@ from datetime import timedelta, datetime
 from pytz import timezone
 
 
-
 def create_df(raw_data):
     # Make each array same length
     for array in raw_data[1:]:
@@ -51,7 +50,7 @@ def clean_df(df):
         df[col_name] = df[col_name] + ' | ' + pts[col_name]
 
     # Drop redundant time column, drop all empty rows
-    df = df.drop('time', axis=1).dropna(subset='datetime').set_index('datetime').dropna(how='all')
+    df = df.drop('time', axis=1).dropna(subset=['datetime']).set_index('datetime').dropna(how='all')
 
     return df
 

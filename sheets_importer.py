@@ -20,6 +20,7 @@ def fetch_sheet_data(service, sheet_id, sheet_range):
 SHEET_RANGE = os.environ['SHEET_RANGE']
 SHEET_ID = os.environ['SHEET_ID']
 
+
 try:
     sheet_data = fetch_sheet_data(sheets_service, SHEET_ID, SHEET_RANGE)
 except HttpError as error:
