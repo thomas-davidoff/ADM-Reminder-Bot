@@ -1,29 +1,25 @@
 # ADM-Reminder-Bot
 
-This bot connects to a Google Sheet, managed by the Atlanta Ballet medical staff, containing appointment information for the dancers, 
-and sends automated email reminders to those dancers at a specific time every day.
+This bot utilizes Google API to connect to a GSheet containing PT appointment information for the dancers of Atlanta Ballet, to automatically send appointment reminder emails on the day before and the day of the appointment.
 
 ## Description
 
-The script is hosted on [Python Anywhere](https://www.pythonanywhere.com/), where there are a few additional resources not committed 
-to this repo, including recipient emails, authentication tokens, and credentials for accessing Google's various [API](https://cloud.google.com/apis) endpoints
-
-I initially planned to use Github's VCS with PythonAnywhere, but they don't make it particularly easy. I can create a git repo within PythonAnywhere
-but as far as I know I need to create it as a web app so I can use webhooks to send requests to GH.
+The script is hosted on [Python Anywhere](https://www.pythonanywhere.com/), where the built-in task scheduler functionality executes the main.py script at 17:00 UTC every day. There are a few resources not committed to this repo - namely the authentication token files used to access [Google API](https://cloud.google.com/apis) endpoints and a dict of emails for the appointment holders.
 
 Future plans include:
-* Admin functions to view a daily summary of appointments
-* Google Sheets structure overhaul (would make the parser script largely redundant but would improve reliability)
-* Error handling (create ways around errors in case there are misspelled names, misplaced timeslots, or general formatting errors)
-* Migration to either a paid hosting service or another service entirely to allow (some or all of the following):
-     * Full-time monitoring of Google Sheet with event listeners to pick up when new appointments are created, deleted or otherwise changed.
-     * Web-app hosting for admin portal, live summary, possibly even appointment sign-up
-
-## Getting Started
+* Admin management functions
+* Error handling
+    * Approximate string matching to handle appointment holder names when they are misspelled in the PT sign-up sheet.
+    * Saving a list of emails and messages to send in case of HTTP errors when connecting to building API service
+* Full-time monitoring of PT sign-up sheet to allow:
+    * Sending of emails to appointment holders who create their appointments after the task's scheduled runtime
+    * Cancellation of email sending for those who have cancelled their appointments
+    * Would likely require migration to a paid service which would allow for regular scheduled runs of individual scripts or 'always-running' functionality to allow for event-listening.
+* Creation of a web app to allow for viewing of a selection of the sheet or a summary of an individual's statistics with identity verification
 
 ### Dependencies
 
-* Will include full list of dependencies in a future release, in a requirements.txt file.
+* See [requirements.txt](https://github.com/thomas-davidoff/ADM-Reminder-Bot/blob/master/requirements.txt) file.
 
 ## Version History
 
