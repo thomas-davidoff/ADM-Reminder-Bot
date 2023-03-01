@@ -12,7 +12,7 @@ def create_df(raw_data):
         main_col_length = len(raw_data[0])
         length_difference = main_col_length - len(array)
         for row in range(length_difference):
-            array.append(' ')
+            array.append('')
 
     data_dict = {'time': raw_data[0]}
     for column_number in range(len(raw_data) - 1):
@@ -27,12 +27,13 @@ def create_df(raw_data):
 
 
 def clean_df(df):
+    og_length = max(df.index)
     weekday = ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday')
     index_col = df.time
 
     # Create Series of days from time column of raw df and reindex to forward fill values
     days = index_col[index_col.str.startswith(weekday, na=False)]
-    days = days.reindex(index=range(len(df)), method='ffill')
+    days = days.reindex(index=range(og_length), method='ffill')
 
     # Create Series of time slots from time column of raw df by checking whether first char is numeric
     times = index_col[index_col.fillna(' ').str[0].str.isnumeric()]
@@ -42,10 +43,11 @@ def clean_df(df):
 
     # Identify which rows are PT rows by filtering out valid datetime entries
     pts = df[df['datetime'].isnull()].iloc[:, 1:-1]
-    pts = pts.reindex(index=range(len(df)), method='ffill')
+    pts = pts.reindex(index=range(og_length), method='ffill')
 
     # Combine PT name with dancer name keeping slot columns
-    for i in [i + 1 for i in range(len(df.iloc[:, 1:-1].columns))]:
+    new_cols_list = [i + 1 for i in range(len(df.iloc[:, 1:-1].columns))]
+    for i in new_cols_list:
         col_name = f'slot {i}'
         df[col_name] = df[col_name] + ' | ' + pts[col_name]
 
